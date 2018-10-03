@@ -1,18 +1,19 @@
 defmodule MatchFetcher do
   @moduledoc """
-  Documentation for MatchFetcher.
+  Application supervisor module. Starts fetcher process.
   """
 
-  @doc """
-  Hello world.
+  use Application
 
-  ## Examples
+  @spec start(any(), any()) :: {:error, any()} | {:ok, pid()}
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
 
-      iex> MatchFetcher.hello()
-      :world
+    children = [
+      worker(MatchFetcher.Fetcher, [])
+    ]
 
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: MatchFetcher.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end
