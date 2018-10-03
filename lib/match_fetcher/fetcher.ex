@@ -1,9 +1,11 @@
 defmodule MatchFetcher.Fetcher do
   @moduledoc """
-  Provider fetching process. Fetches provider data.
+  Long-polling process. Fetches provider data periodicaly.
   """
 
   use GenServer
+
+  alias MatchFetcher.Provider
 
   # API
 
@@ -29,9 +31,14 @@ defmodule MatchFetcher.Fetcher do
   end
 
   defp do_request() do
+    # Provider fetch
   end
 
   defp fetch_data() do
-    Process.send_after(self(), :fetch, String.to_integer(Application.get_env(:match_fetcher, :fetch_period)))
+    Process.send_after(
+      self(),
+      :fetch,
+      String.to_integer(Application.get_env(:match_fetcher, :fetch_period))
+    )
   end
 end
