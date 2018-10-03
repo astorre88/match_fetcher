@@ -9,29 +9,33 @@ defmodule MatchFetcher.Fetcher do
 
   # API
 
-  @spec start_link() :: :ignore | {:error, any()} | {:ok, pid()}
-  def start_link do
-    GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
+  @spec start_link(nil | keyword() | map()) :: :ignore | {:error, any()} | {:ok, pid()}
+  def start_link(provider_config) do
+    GenServer.start_link(__MODULE__, provider_config[:url],
+      name: :"#{provider_config[:name]}Worker"
+    )
   end
 
   # Server
 
   @impl true
-  @spec init(:ok) :: {:ok, 0}
-  def init(:ok) do
+  @spec init(any()) :: {:ok, any()}
+  def init(url) do
     fetch_data()
-    {:ok, 0}
+    {:ok, url}
   end
 
   @impl true
-  def handle_info(:fetch, state) do
-    spawn_link(&do_request/0)
+  def handle_info(:fetch, url) do
+    spawn_link(__MODULE__, :do_request, [url])
     fetch_data()
-    {:noreply, state}
+    {:noreply, url}
   end
 
-  defp do_request() do
-    # Provider fetch
+  @spec do_request(any()) :: any()
+  def do_request(url) do
+    IO.inspect(url)
+    # Provider.fetch(url) |> IO.inspect
   end
 
   defp fetch_data() do

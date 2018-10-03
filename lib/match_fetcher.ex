@@ -7,13 +7,16 @@ defmodule MatchFetcher do
 
   @spec start(any(), any()) :: {:error, any()} | {:ok, pid()}
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
-
-    children = [
-      worker(MatchFetcher.Fetcher, [])
+    providers_config = [
+      [name: "Matchbeam", url: "http://forzaassignment.forzafootball.com:4040/feed/matchbeam"],
+      [name: "FastBall", url: "http://forzaassignment.forzafootball.com:4040/feed/fastball"]
     ]
 
-    opts = [strategy: :one_for_one, name: MatchFetcher.Supervisor]
-    Supervisor.start_link(children, opts)
+    start_providers(providers_config)
+  end
+
+  @spec start_providers(any()) :: :ignore | {:error, any()} | {:ok, pid()}
+  def start_providers(providers_config) do
+    MatchFetcher.Supervisor.start_link(providers_config)
   end
 end
