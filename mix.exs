@@ -9,6 +9,8 @@ defmodule MatchFetcher.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       aliases: aliases(),
 
       # Docs
@@ -43,6 +45,10 @@ defmodule MatchFetcher.MixProject do
       # Testing and documenting
       {:ex_machina, "~> 2.2"},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
+      {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]},
+
+      # Test coverage
+      {:excoveralls, "~> 0.10", only: :test},
     ]
   end
 
