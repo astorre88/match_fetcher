@@ -5,8 +5,8 @@ defmodule MatchFetcher.Matches do
 
   import Ecto.Query, warn: false
 
-  alias MatchFetcher.Repo
   alias MatchFetcher.Matches.Match
+  alias MatchFetcher.Repo
 
   @doc """
   Creates a match.

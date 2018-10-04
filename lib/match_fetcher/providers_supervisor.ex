@@ -1,4 +1,8 @@
 defmodule MatchFetcher.ProvidersSupervisor do
+  @moduledoc """
+  The dynamic fetchers supervisor module. Supervises provider fetcher processes.
+  """
+
   use DynamicSupervisor
 
   @spec start_link() :: :ignore | {:error, any()} | {:ok, pid()}

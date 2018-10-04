@@ -5,8 +5,8 @@ defmodule MatchFetcher.Fetcher do
 
   use GenServer
 
-  alias MatchFetcher.Provider
   alias MatchFetcher.Matches
+  alias MatchFetcher.Provider
 
   # API
 
@@ -46,7 +46,7 @@ defmodule MatchFetcher.Fetcher do
     # )
   end
 
-  defp fetch_data() do
+  defp fetch_data do
     Process.send_after(
       self(),
       :fetch,

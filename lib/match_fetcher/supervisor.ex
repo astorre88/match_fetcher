@@ -1,4 +1,8 @@
 defmodule MatchFetcher.Supervisor do
+  @moduledoc """
+  The main supervisor module. Starts server process and dynamic fetchers supervisor.
+  """
+
   use Supervisor
 
   @spec start_link(any()) :: {:error, any()} | {:ok, pid()}

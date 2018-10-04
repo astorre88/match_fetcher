@@ -33,6 +33,9 @@ defmodule MatchFetcher.MixProject do
       {:ecto, "~> 2.0"},
       {:postgrex, "~> 0.11"},
 
+      # Linters
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+
       # Testing
       {:ex_machina, "~> 2.2"}
     ]

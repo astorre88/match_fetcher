@@ -14,6 +14,8 @@ defmodule MatchFetcher.RepoCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias MatchFetcher.Repo
@@ -25,10 +27,10 @@ defmodule MatchFetcher.RepoCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(MatchFetcher.Repo)
+    :ok = Sandbox.checkout(MatchFetcher.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(MatchFetcher.Repo, {:shared, self()})
+      Sandbox.mode(MatchFetcher.Repo, {:shared, self()})
     end
 
     :ok

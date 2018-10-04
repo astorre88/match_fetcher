@@ -1,5 +1,9 @@
 defmodule MatchFetcher.Matches.Match do
+  @moduledoc false
+
   use Ecto.Schema
+
+  import Ecto.Changeset
 
   schema "matches" do
     field(:home_team, :string)
@@ -13,7 +17,7 @@ defmodule MatchFetcher.Matches.Match do
         ) :: Ecto.Changeset.t()
   def changeset(match, params \\ %{}) do
     match
-    |> Ecto.Changeset.cast(params, [:home_team, :away_team, :created_at])
-    |> Ecto.Changeset.validate_required([:home_team, :away_team, :created_at])
+    |> cast(params, [:home_team, :away_team, :created_at])
+    |> validate_required([:home_team, :away_team, :created_at])
   end
 end

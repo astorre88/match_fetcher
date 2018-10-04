@@ -1,5 +1,11 @@
 defmodule MatchFetcher.Server do
+  @moduledoc """
+  The server module. Starts and links fetcher processes to dynamic fetchers supervisor.
+  """
+
   use GenServer
+
+  alias MatchFetcher.ProvidersSupervisor
 
   # API
 
@@ -21,7 +27,7 @@ defmodule MatchFetcher.Server do
   end
 
   def handle_info({:start_provider, provider_config}, state) do
-    {:ok, _wid} = MatchFetcher.ProvidersSupervisor.add_provider(provider_config)
+    {:ok, _wid} = ProvidersSupervisor.add_provider(provider_config)
     {:noreply, state}
   end
 end
