@@ -9,7 +9,11 @@ defmodule MatchFetcher.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+
+      # Docs
+      name: "MatchFetcher",
+      source_url: "https://bitbucket.org/astorre/match_fetcher"
     ]
   end
 
@@ -36,8 +40,9 @@ defmodule MatchFetcher.MixProject do
       # Linters
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
 
-      # Testing
-      {:ex_machina, "~> 2.2"}
+      # Testing and documenting
+      {:ex_machina, "~> 2.2"},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
     ]
   end
 
