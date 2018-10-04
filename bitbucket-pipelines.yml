@@ -14,4 +14,4 @@ definitions:
     database:
       image: postgres:9.6
       environment:
-        POSTGRES_PASSWORD: pipelines-test
+        POSTGRES_PASSWORD: postgres
