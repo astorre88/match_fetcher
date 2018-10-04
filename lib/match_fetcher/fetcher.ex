@@ -6,6 +6,7 @@ defmodule MatchFetcher.Fetcher do
   use GenServer
 
   alias MatchFetcher.Provider
+  alias MatchFetcher.Matches
 
   # API
 
@@ -34,8 +35,15 @@ defmodule MatchFetcher.Fetcher do
 
   @spec do_request(any()) :: any()
   def do_request(url) do
-    IO.inspect(url)
+    # IO.inspect(url)
     # Provider.fetch(url) |> IO.inspect
+    # Matches.create_match(
+    #   %{
+    #     home_team: "Milano",
+    #     away_team: "Barsa",
+    #     created_at: DateTime.from_unix!(1538646136)
+    #   }
+    # )
   end
 
   defp fetch_data() do

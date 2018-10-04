@@ -6,3 +6,5 @@ config :match_fetcher,
 config :match_fetcher,
        MatchFetcher.Provider.Action,
        client: MatchFetcher.Provider.Clients.Basic
+
+config :logger, level: :info

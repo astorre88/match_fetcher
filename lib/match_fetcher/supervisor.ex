@@ -6,8 +6,10 @@ defmodule MatchFetcher.Supervisor do
     Supervisor.start_link(__MODULE__, providers_config, name: __MODULE__)
   end
 
+  @impl true
   def init(providers_config) do
     children = [
+      MatchFetcher.Repo,
       {DynamicSupervisor, strategy: :one_for_one, name: MatchFetcher.ProvidersSupervisor},
       %{
         id: MatchFetcher.Server,
