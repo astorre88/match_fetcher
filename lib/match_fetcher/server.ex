@@ -18,11 +18,7 @@ defmodule MatchFetcher.Server do
 
   @spec init(any()) :: {:ok, any()}
   def init(providers_config) do
-    providers_config
-    |> Enum.each(fn provider_config ->
-      send(self(), {:start_provider, provider_config})
-    end)
-
+    Enum.each(providers_config, &send(self(), {:start_provider, &1}))
     {:ok, providers_config}
   end
 

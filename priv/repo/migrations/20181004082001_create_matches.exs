@@ -9,5 +9,6 @@ defmodule MatchFetcher.Repo.Migrations.CreateMatches do
     end
 
     create index(:matches, [:created_at])
+    create unique_index(:matches, [:home_team, :away_team, :created_at], name: :index_matches_on_event)
   end
 end

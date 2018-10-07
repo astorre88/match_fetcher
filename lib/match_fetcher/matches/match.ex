@@ -19,5 +19,6 @@ defmodule MatchFetcher.Matches.Match do
     match
     |> cast(params, [:home_team, :away_team, :created_at])
     |> validate_required([:home_team, :away_team, :created_at])
+    |> unique_constraint(:created_at, name: :index_matches_on_event)
   end
 end

@@ -31,6 +31,23 @@ defmodule MatchFetcher.Matches do
   end
 
   @doc """
+  Creates a bulk of matches.
+
+  ## Examples
+
+      iex> create_matches([%{away_team: "Chelsea FC", home_team: "Arsenal", created_at: DateTime.from_unix!(1_515_503_067)}])
+      nil
+
+      iex> create_matches([])
+      nil
+
+  """
+  @spec create_matches(maybe_improper_list()) :: {any(), nil | [any()]}
+  def create_matches(maps \\ []) do
+    Repo.insert_all(Match, maps, on_conflict: :nothing)
+  end
+
+  @doc """
   Gets the last match.
 
   ## Examples

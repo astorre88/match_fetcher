@@ -10,7 +10,12 @@ defmodule MatchFetcher.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       aliases: aliases(),
 
       # Docs
@@ -35,7 +40,7 @@ defmodule MatchFetcher.MixProject do
   defp deps do
     [
       # Core
-      {:jason, "~> 1.1"},
+      {:poison, "~> 3.1"},
       {:ecto, "~> 2.0"},
       {:postgrex, "~> 0.11"},
 
@@ -48,7 +53,7 @@ defmodule MatchFetcher.MixProject do
       {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]},
 
       # Test coverage
-      {:excoveralls, "~> 0.10", only: :test},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 

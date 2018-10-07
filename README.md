@@ -1,21 +1,36 @@
 # MatchFetcher
 
-**TODO: Add description**
+## About a project
 
-## Installation
+The application fetches API providers and persists results to the Postgres DB.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `match_fetcher` to your list of dependencies in `mix.exs`:
+The main features:
 
-```elixir
-def deps do
-  [
-    {:match_fetcher, "~> 0.1.0"}
-  ]
-end
+* you can add another provider by:
+  * adding configure attributes in MatchFetcher module
+  * adding type module like MatchFetcher.FastBall module
+* you can change fetch period in configs
+* it uses additional path variables for offset limiting provider response
+
+## Setup
+
+```sh
+mix deps.get
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/match_fetcher](https://hexdocs.pm/match_fetcher).
+Create DB and run migrations:
+```sh
+mix ecto.create && mix ecto.migrate
+```
 
+## Run the project
+
+```sh
+MIX_ENV=<environment> mix run --no-halt
+```
+
+## Run tests
+
+```sh
+mix test
+```

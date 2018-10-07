@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :match_fetcher,
-  fetch_period: System.get_env("FETCH_PERIOD")
+  fetch_period: 30_000
 
 config :match_fetcher,
        MatchFetcher.Provider.Action,

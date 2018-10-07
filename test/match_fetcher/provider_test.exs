@@ -1,43 +1,52 @@
 defmodule MatchFetcher.ProviderTest do
-  use ExUnit.Case
+  use MatchFetcher.RepoCase
 
+  import MatchFetcher.MatchFactory
+
+  alias MatchFetcher.FastBall
+  alias MatchFetcher.Fetcher.State
+  alias MatchFetcher.Matchbeam
   alias MatchFetcher.Provider
 
   test "fetches matchbeam json response" do
-    response = Provider.fetch("http://forzaassignment.forzafootball.com:4040/feed/matchbeam")
+    insert(:match)
+    insert(:match)
 
-    assert response == {
-             :ok,
-             [
-               %{
-                 "teams" => "Arsenal - Chelsea FC",
-                 "created_at" => 1_515_503_067
-               }
-             ]
-           }
+    response =
+      Provider.fetch(%State{
+        name: "Matchbeam",
+        url: "http://forzaassignment.forzafootball.com:4040/feed/matchbeam"
+      })
+
+    assert response ==
+             {:ok, [%Matchbeam{created_at: 1_515_503_067, teams: "Arsenal - Chelsea FC"}]}
   end
 
   test "fetches fastball json response" do
-    response = Provider.fetch("http://forzaassignment.forzafootball.com:4040/feed/fastball")
+    insert(:match)
 
-    assert response == {
-             :ok,
-             [
-               %{
-                 "home_team" => "Arsenal",
-                 "away_team" => "Chelsea FC",
-                 "created_at" => 1_515_503_067
-               }
-             ]
-           }
+    response =
+      Provider.fetch(%State{
+        name: "FastBall",
+        url: "http://forzaassignment.forzafootball.com:4040/feed/fastball",
+        offset_option: "last_checked_at",
+        offset_value: DateTime.utc_now()
+      })
+
+    assert response ==
+             {:ok,
+              [
+                %FastBall{
+                  away_team: "Def",
+                  created_at: 1_515_503_099,
+                  home_team: "Abc"
+                }
+              ]}
   end
 
   test "returns error" do
-    response = Provider.fetch("wrong_url")
+    response = Provider.fetch(%State{name: "FastBall", url: "wrong_url"})
 
-    assert response == {
-             :error,
-             "ERROR Response: failed_connect"
-           }
+    assert response == {:error, "ERROR Response: failed_connect"}
   end
 end

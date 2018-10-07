@@ -8,14 +8,21 @@ defmodule MatchFetcher.Provider.Clients.Stub do
   def request('http://forzaassignment.forzafootball.com:4040/feed/matchbeam') do
     {
       :ok,
-      ~s([{"teams": "Arsenal - Chelsea FC", "created_at": 1515503067}])
+      ~s({"matches": [{"teams": "Arsenal - Chelsea FC", "created_at": 1515503067}]})
     }
   end
 
   def request('http://forzaassignment.forzafootball.com:4040/feed/fastball') do
     {
       :ok,
-      ~s([{"home_team": "Arsenal", "away_team": "Chelsea FC", "created_at": 1515503067}])
+      ~s({"matches": [{"home_team": "Arsenal", "away_team": "Chelsea FC", "created_at": 1515503067}]})
+    }
+  end
+
+  def request('http://forzaassignment.forzafootball.com:4040/feed/fastball' ++ _offset_option) do
+    {
+      :ok,
+      ~s({"matches": [{"home_team": "Abc", "away_team": "Def", "created_at": 1515503099}]})
     }
   end
 

@@ -8,8 +8,15 @@ defmodule MatchFetcher do
   @spec start(any(), any()) :: {:error, any()} | {:ok, pid()}
   def start(_type, _args) do
     providers_config = [
-      [name: "Matchbeam", url: "http://forzaassignment.forzafootball.com:4040/feed/matchbeam"],
-      [name: "FastBall", url: "http://forzaassignment.forzafootball.com:4040/feed/fastball"]
+      [
+        name: "Matchbeam",
+        url: "http://forzaassignment.forzafootball.com:4040/feed/matchbeam"
+      ],
+      [
+        name: "FastBall",
+        url: "http://forzaassignment.forzafootball.com:4040/feed/fastball",
+        offset_option: "last_checked_at"
+      ]
     ]
 
     start_providers(providers_config)
